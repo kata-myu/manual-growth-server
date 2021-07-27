@@ -75,7 +75,6 @@ class CategoriesController < ApplicationController
   def select_category
     manuals = Manual.where(category_id: params[:id])
     categories = Category.all
-    manuals = Manual.all.order('created_at desc')
 
     manuals.each_with_index do |manual, i|
       if manual.image.present?
@@ -92,7 +91,6 @@ class CategoriesController < ApplicationController
   def search_manual
     manuals = Manual.where("job LIKE(?)", "%#{params[:word]}%")
     categories = Category.all
-    manuals = Manual.all.order('created_at desc')
 
     manuals.each_with_index do |manual, i|
       if manual.image.present?
