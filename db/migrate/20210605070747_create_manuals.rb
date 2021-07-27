@@ -4,6 +4,7 @@ class CreateManuals < ActiveRecord::Migration[6.0]
       t.string :job, null: false
       t.string :heading, null: false
       t.text :text, null: false
+      t.text :image_url
       t.references :category, foreign_key: true
 
       t.timestamps

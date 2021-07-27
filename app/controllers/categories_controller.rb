@@ -2,8 +2,16 @@ class CategoriesController < ApplicationController
   def index
     categories = Category.all
     manuals = Manual.all.order('created_at desc')
+
+    manuals.each_with_index do |manual, i|
+      if manual.image.present?
+        manuals[i][:image_url] = url_for(manual.image)
+      else
+        manuals[i][:image_url] = "no image" 
+      end
+    end
+
     datas = [categories, manuals]
-    
     render json: datas
   end
 
@@ -13,8 +21,18 @@ class CategoriesController < ApplicationController
 
     categories = Category.all
     manuals = Manual.all.order('created_at desc')
-    datas = [categories, manuals]
-    
+
+    urls = []
+    manuals.each do |manual|
+      if manual.image.present?
+        urls.push(url_for(manual.image))
+      else
+        urls.push("no image") 
+      end
+    end
+
+    datas = [categories, manuals, urls]
+
     render json: datas
   end
 
@@ -24,8 +42,18 @@ class CategoriesController < ApplicationController
 
     categories = Category.all
     manuals = Manual.all.order('created_at desc')
-    datas = [categories, manuals]
-    
+
+    urls = []
+    manuals.each do |manual|
+      if manual.image.present?
+        urls.push(url_for(manual.image))     #"http://localhost:3000/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBEdz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--01d21489fc6dde0976835a9802e93d342837d5e7/background-image.jpg"のようなURLができる
+      else
+        urls.push("no image") 
+      end
+    end
+
+    datas = [categories, manuals, urls]
+
     render json: datas
   end
 
@@ -35,24 +63,56 @@ class CategoriesController < ApplicationController
 
     categories = Category.all
     manuals = Manual.all.order('created_at desc')
-    datas = [categories, manuals]
-    
+
+    urls = []
+    manuals.each do |manual|
+      if manual.image.present?
+        urls.push(url_for(manual.image))
+      else
+        urls.push("no image") 
+      end
+    end
+
+    datas = [categories, manuals, urls]
+
     render json: datas
   end
 
   def select_category
     manuals = Manual.where(category_id: params[:id])
     categories = Category.all
-    datas = [categories, manuals]
-    
+    manuals = Manual.all.order('created_at desc')
+
+    urls = []
+    manuals.each do |manual|
+      if manual.image.present?
+        urls.push(url_for(manual.image))
+      else
+        urls.push("no image") 
+      end
+    end
+
+    datas = [categories, manuals, urls]
+
     render json: datas
   end
 
   def search_manual
     manuals = Manual.where("job LIKE(?)", "%#{params[:word]}%")
     categories = Category.all
-    datas = [categories, manuals]
-    
+    manuals = Manual.all.order('created_at desc')
+
+    urls = []
+    manuals.each do |manual|
+      if manual.image.present?
+        urls.push(url_for(manual.image))
+      else
+        urls.push("no image") 
+      end
+    end
+
+    datas = [categories, manuals, urls]
+
     render json: datas
   end
 
@@ -63,6 +123,6 @@ class CategoriesController < ApplicationController
   end
 
   def manual_params
-    params.permit(:category_id, :job, :heading, :text)
+    params.permit(:category_id, :job, :heading, :text, :image)
   end
 end

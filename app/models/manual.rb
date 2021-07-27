@@ -1,4 +1,6 @@
 class Manual < ApplicationRecord
+  include Rails.application.routes.url_helpers
+
   with_options presence: true do
     validates :job
     validates :heading
@@ -6,4 +8,5 @@ class Manual < ApplicationRecord
   end
 
   belongs_to :category
+  has_one_attached :image
 end
