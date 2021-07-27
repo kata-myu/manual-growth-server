@@ -5,7 +5,7 @@ class CategoriesController < ApplicationController
 
     manuals.each_with_index do |manual, i|
       if manual.image.present?
-        manuals[i][:image_url] = url_for(manual.image)
+        manuals[i][:image_url] = url_for(manual.image)   #"http://localhost:3000/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBEdz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--01d21489fc6dde0976835a9802e93d342837d5e7/background-image.jpg"のようなURLができる
       else
         manuals[i][:image_url] = "no image" 
       end
@@ -22,17 +22,15 @@ class CategoriesController < ApplicationController
     categories = Category.all
     manuals = Manual.all.order('created_at desc')
 
-    urls = []
-    manuals.each do |manual|
+    manuals.each_with_index do |manual, i|
       if manual.image.present?
-        urls.push(url_for(manual.image))
+        manuals[i][:image_url] = url_for(manual.image)  
       else
-        urls.push("no image") 
+        manuals[i][:image_url] = "no image" 
       end
     end
 
-    datas = [categories, manuals, urls]
-
+    datas = [categories, manuals]
     render json: datas
   end
 
@@ -43,17 +41,15 @@ class CategoriesController < ApplicationController
     categories = Category.all
     manuals = Manual.all.order('created_at desc')
 
-    urls = []
-    manuals.each do |manual|
+    manuals.each_with_index do |manual, i|
       if manual.image.present?
-        urls.push(url_for(manual.image))     #"http://localhost:3000/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBEdz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--01d21489fc6dde0976835a9802e93d342837d5e7/background-image.jpg"のようなURLができる
+        manuals[i][:image_url] = url_for(manual.image)  
       else
-        urls.push("no image") 
+        manuals[i][:image_url] = "no image" 
       end
     end
 
-    datas = [categories, manuals, urls]
-
+    datas = [categories, manuals]
     render json: datas
   end
 
@@ -64,17 +60,15 @@ class CategoriesController < ApplicationController
     categories = Category.all
     manuals = Manual.all.order('created_at desc')
 
-    urls = []
-    manuals.each do |manual|
+    manuals.each_with_index do |manual, i|
       if manual.image.present?
-        urls.push(url_for(manual.image))
+        manuals[i][:image_url] = url_for(manual.image)  
       else
-        urls.push("no image") 
+        manuals[i][:image_url] = "no image" 
       end
     end
 
-    datas = [categories, manuals, urls]
-
+    datas = [categories, manuals]
     render json: datas
   end
 
@@ -83,17 +77,15 @@ class CategoriesController < ApplicationController
     categories = Category.all
     manuals = Manual.all.order('created_at desc')
 
-    urls = []
-    manuals.each do |manual|
+    manuals.each_with_index do |manual, i|
       if manual.image.present?
-        urls.push(url_for(manual.image))
+        manuals[i][:image_url] = url_for(manual.image)  
       else
-        urls.push("no image") 
+        manuals[i][:image_url] = "no image" 
       end
     end
 
-    datas = [categories, manuals, urls]
-
+    datas = [categories, manuals]
     render json: datas
   end
 
@@ -102,17 +94,15 @@ class CategoriesController < ApplicationController
     categories = Category.all
     manuals = Manual.all.order('created_at desc')
 
-    urls = []
-    manuals.each do |manual|
+    manuals.each_with_index do |manual, i|
       if manual.image.present?
-        urls.push(url_for(manual.image))
+        manuals[i][:image_url] = url_for(manual.image)  
       else
-        urls.push("no image") 
+        manuals[i][:image_url] = "no image" 
       end
     end
 
-    datas = [categories, manuals, urls]
-
+    datas = [categories, manuals]
     render json: datas
   end
 
