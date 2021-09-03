@@ -1,7 +1,7 @@
 class CreateManuals < ActiveRecord::Migration[6.0]
   def change
     create_table :manuals do |t|
-      t.string :job, null: false
+      t.string :title, null: false
       t.string :heading, null: false
       t.text :text, null: false
       t.text :image_url
