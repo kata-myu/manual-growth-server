@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 2021_07_26_080428) do
   end
 
   create_table "manuals", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "job", null: false
+    t.string "title", null: false
     t.string "heading", null: false
     t.text "text", null: false
     t.text "image_url"

@@ -89,7 +89,7 @@ class CategoriesController < ApplicationController
   end
 
   def search_manual
-    manuals = Manual.where("job LIKE(?)", "%#{params[:word]}%")
+    manuals = Manual.where("title LIKE(?)", "%#{params[:word]}%")
     categories = Category.all
 
     manuals.each_with_index do |manual, i|
@@ -111,6 +111,9 @@ class CategoriesController < ApplicationController
   end
 
   def manual_params
-    params.permit(:category_id, :job, :heading, :text, :image)
+    if params[:image] == ""
+      params.delete(:image)
+    end
+    params.permit(:category_id, :title, :heading, :text, :image)
   end
 end
