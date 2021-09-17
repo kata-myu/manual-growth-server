@@ -53,6 +53,25 @@ class CategoriesController < ApplicationController
     render json: datas
   end
 
+  def update_manual
+    manual = Manual.find(params[:id])
+    manual.update(manual_params)
+
+    categories = Category.all
+    manuals = Manual.all.order('created_at desc')
+
+    manuals.each_with_index do |manual, i|
+      if manual.image.present?
+        manuals[i][:image_url] = url_for(manual.image)  
+      else
+        manuals[i][:image_url] = "no image" 
+      end
+    end
+
+    datas = [categories, manuals]
+    render json: datas
+  end
+
   def delete_manual
     manual = Manual.find(params[:id])
     manual.destroy
