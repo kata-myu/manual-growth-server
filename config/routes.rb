@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :categories do
     collection do
       post :create_manual
+      patch :update_manual
       delete :delete_manual
       get :select_category
       get :search_manual
