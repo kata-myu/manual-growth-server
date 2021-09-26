@@ -4,10 +4,14 @@ class CategoriesController < ApplicationController
     manuals = Manual.all.order('created_at desc')
 
     manuals.each_with_index do |manual, i|
-      if manual.image.present?
-        manuals[i][:image_url] = url_for(manual.image)   #"http://localhost:3000/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBEdz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--01d21489fc6dde0976835a9802e93d342837d5e7/background-image.jpg"のようなURLができる
+      if manual.images.present?
+        images = ""
+        manual.images.each_with_index do |image, i| 
+          images = images + url_for(image) + ","
+        end
+        manuals[i][:image_url] = images
       else
-        manuals[i][:image_url] = "no image" 
+        manuals[i][:image_url] = "no images" 
       end
     end
 
@@ -23,10 +27,14 @@ class CategoriesController < ApplicationController
     manuals = Manual.all.order('created_at desc')
 
     manuals.each_with_index do |manual, i|
-      if manual.image.present?
-        manuals[i][:image_url] = url_for(manual.image)  
+      if manual.images.present?
+        images = ""
+        manual.images.each_with_index do |image, i| 
+          images = images + url_for(image) + ","
+        end
+        manuals[i][:image_url] = images
       else
-        manuals[i][:image_url] = "no image" 
+        manuals[i][:image_url] = "no images" 
       end
     end
 
@@ -42,10 +50,14 @@ class CategoriesController < ApplicationController
     manuals = Manual.all.order('created_at desc')
 
     manuals.each_with_index do |manual, i|
-      if manual.image.present?
-        manuals[i][:image_url] = url_for(manual.image)  
+      if manual.images.present?
+        images = ""
+        manual.images.each_with_index do |image, i| 
+          images = images + url_for(image) + ","
+        end
+        manuals[i][:image_url] = images
       else
-        manuals[i][:image_url] = "no image" 
+        manuals[i][:image_url] = "no images" 
       end
     end
 
@@ -61,10 +73,10 @@ class CategoriesController < ApplicationController
     manuals = Manual.all.order('created_at desc')
 
     manuals.each_with_index do |manual, i|
-      if manual.image.present?
-        manuals[i][:image_url] = url_for(manual.image)  
+      if manual.images.present?
+        manuals[i][:image_url] = url_for(manual.images)  
       else
-        manuals[i][:image_url] = "no image" 
+        manuals[i][:image_url] = "no images" 
       end
     end
 
@@ -80,10 +92,10 @@ class CategoriesController < ApplicationController
     manuals = Manual.all.order('created_at desc')
 
     manuals.each_with_index do |manual, i|
-      if manual.image.present?
-        manuals[i][:image_url] = url_for(manual.image)  
+      if manual.images.present?
+        manuals[i][:image_url] = url_for(manual.images)  
       else
-        manuals[i][:image_url] = "no image" 
+        manuals[i][:image_url] = "no images" 
       end
     end
 
@@ -96,10 +108,10 @@ class CategoriesController < ApplicationController
     categories = Category.all
 
     manuals.each_with_index do |manual, i|
-      if manual.image.present?
-        manuals[i][:image_url] = url_for(manual.image)  
+      if manual.images.present?
+        manuals[i][:image_url] = url_for(manual.images)  
       else
-        manuals[i][:image_url] = "no image" 
+        manuals[i][:image_url] = "no images" 
       end
     end
 
@@ -112,10 +124,10 @@ class CategoriesController < ApplicationController
     categories = Category.all
 
     manuals.each_with_index do |manual, i|
-      if manual.image.present?
-        manuals[i][:image_url] = url_for(manual.image)  
+      if manual.images.present?
+        manuals[i][:image_url] = url_for(manual.images)  
       else
-        manuals[i][:image_url] = "no image" 
+        manuals[i][:image_url] = "no images" 
       end
     end
 
@@ -130,9 +142,15 @@ class CategoriesController < ApplicationController
   end
 
   def manual_params
-    if params[:image] == ""
-      params.delete(:image)
+    if params[:images] == ""
+      params.delete(:images)
+    else
+      images = []
+      images.push(params[:images0])
+      images.push(params[:images1]) if params[:images1] 
+      images.push(params[:images2]) if params[:images2] 
+      params[:images] = images
     end
-    params.permit(:category_id, :title, :heading, :text, :image)
+    params.permit(:category_id, :title, :heading, :text, images: [])
   end
 end
